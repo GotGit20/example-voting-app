@@ -16,7 +16,7 @@ pipeline {
             steps {
                 echo 'Compiling vote app'
                 dir('vote'){
-                    sh 'pip install -i requirements.xt'
+                    sh 'pip install -i requirements.txt'
                 }
                 
             }
@@ -40,6 +40,9 @@ pipeline {
 
         stage("docker-package") {
             agent any
+            when {
+                changeset "**/vote/**"
+            }
             steps {
                 echo "Packaging vote app with docker"
                 script {
