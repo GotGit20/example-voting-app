@@ -84,6 +84,7 @@ pipeline {
         stage('result docker-package') {
             when {
                 changeset "**/result/**"
+                branch "master"
             }
             steps {
                 echo 'Packaging result app using docker'
