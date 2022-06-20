@@ -82,13 +82,11 @@ pipeline {
                 changeset "**/result/**"
             }
             steps {
-                echo 'Testing result app '
-                script {
-                    docker.withRegistry('https://index.docker.io/v1/', 'dockerlogin') {
-                        def workerImage = docker.build("mydock21/worker:v${env.BUILD_ID}", "./result")
-                        workerImage.push("${env.BRANCH_NAME}")
-                    }
+                echo 'Testing result app'
+                dir('result'){
+                    sh 'npm test'
                 }
+
             }
         }
         stage('result docker-package') {
