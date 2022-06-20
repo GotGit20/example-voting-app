@@ -56,6 +56,11 @@ pipeline {
 
 
         stage('result build') {
+            agent {
+                docker {
+                    image 'node:8.16.0-alpine'
+                }
+            }
             when {
                 changeset "**/result/**"
             }
@@ -68,6 +73,11 @@ pipeline {
             }
         }
         stage('result test') {
+            agent {
+                docker {
+                    image 'node:8.16.0-alpine'
+                }
+            }
             when {
                 changeset "**/result/**"
             }
@@ -82,6 +92,7 @@ pipeline {
             }
         }
         stage('result docker-package') {
+            agent any
             when {
                 changeset "**/result/**"
                 branch "master"
